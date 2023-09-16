@@ -1,3 +1,29 @@
 version: '3.7'
 
 services:
+  cloudpessoal:
+    image: nextcloud:apache
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PASSWORD=nextcloud@2023
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - cloud_pessoal_data:/var/www/html
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=nextcloud@2023
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    expose:
+      - 5432
+volumes:
+  cloud_pessoal_data:
+  db_data:
